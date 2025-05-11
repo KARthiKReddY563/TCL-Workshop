@@ -69,7 +69,7 @@ echo ""
 ```
 set my_work_dir [pwd]
 ```
-4) We can check if the user is porividing a correct .csv file by using below script
+4) We can check if the user is providing a correct .csv file by using below script
 ```
  if ($#argv != 1) then
 	   echo "Info : Please Provide the csv file"
@@ -97,7 +97,7 @@ else
 		tclsh vsdsynth.tcl  $argv[1]
 endif
 ```
-- In first scenario, if the user is not passing  a .csv fileor passing more than one .csv file then it prints a statement "Info : Please Provide the csv file" on the screen as shown below.
+- In first scenario, if the user is not passing  a .csv file or passing more than one .csv file then it prints a statement "Info : Please Provide the csv file" on the screen as shown below.
 
 ![Image](https://github.com/user-attachments/assets/765d0790-2eec-429c-85fc-280697775b71)
 
@@ -122,14 +122,14 @@ Note : Make sure the file is executable by using the command ``` chmod -R 777 pa
 In this module, we will perform sub-task 2 which converts .csv file into format[1] and constraints.csv file into sdc format
 
 - First we need to create the variables using tcl script by reading the first column elemetns of openMSP430_design_details.csv file like DesingName, OutputDirectory etc...
-- Secondly, we need to check if the files / directory provided by user in a csv file ( second column) does exists or nots.
+- Secondly, we need to check if the files/directory provided by user in a csv file ( second column) does exists or nots.
 - Further, we need to read the constraints file for above and convert it into a SDC format which is acceptable for synthesis and PNR purposes.
 - Then we need to read all the files from "NetlistDirectory" i.e. all verilog files and write it in script for Yosys.
-- Lastly, we hgave to create a synthesis script and pass it Yosys tool.
+- Lastly, we have to create a synthesis script and pass it Yosys tool.
 
 #### Creatring variables from CSV file
 
-In this step, we will first convert the CSV file into matrix __m__ and then converts matrix __m__  into an array. By converting the csv file into array, we can access every cell by using TCL commands like __lindex__. The script mentioned below is used to covnert CSV file into array.
+In this step, we will first convert the CSV file into matrix object **m**  and then converts matrix object **m**  into an array. By converting the .csv file into array, we can access every cell by using TCL commands like **lindex**. The script mentioned below is used to covnert CSV file into array.
 
 
         set filename [lindex $argv 0]
@@ -144,11 +144,11 @@ In this step, we will first convert the CSV file into matrix __m__ and then conv
         m link my_arr
         set rows [m rows]
 
-Further, we will create a varialbe by reading first column of csv file and then assign the second column value to the variables. In the first column of csv file, we have varialbe names such as DesignName, OutputDirectory etc.. but we have Space b/w the varialbe like Design Name ,Output Directory etc.. as shown in the below figure.
+Further, we will create a varialbe by reading first column of csv file and then assign the second column value to the variables. In the first column of csv file, we have varialbe names such as DesignName, OutputDirectory etc.. but we have Space between the varialbes like Design Name ,Output Directory etc.. as shown in the below figure.
 
 ![Image](https://github.com/user-attachments/assets/6efdebdd-e27d-415a-8e73-96f4ba260c49)
 
-We need to remove space and then assign second column value to the varialbe. In some second column values, we dont have full directory of the file path like home/vsdsynth/verilog. They just have "./verilog" or  "~/verilog". We need to normalize this and convert it into full path. BThe script mentioned below can normalize values and assign them to variables. It also remvoes the space b/w the varialbe.
+We need to remove space and then assign second column value to the varialbe. In some second column values, we dont have full directory of the file path like home/vsdsynth/verilog. They just have **./verilog** or  **~/verilog**. We need to normalize this and convert it into full path. The script mentioned below can normalize values and assign them to variables. It also remvoes the space b/w the varialbe.
 
 ```
         set i 0
@@ -179,7 +179,7 @@ In the above figure we can see that varaibles and their normalzied values.
 
 We need to check if the directory mentioned exists or not. If the directory not exists then we have to create a new directory. 
 
-We also need to check if the files exists or not. If not exists then we have to warn the user and exit the script. The script mentioned belows check if all the paths/ files mentioned exsists or not. If the directroy doesnt exists then it creates a new directory.
+We also need to check if the files exists or not. If not exists then we have to warn the user and exit the script. The script mentioned below checks if all the directory/files mentioned exsists or not. If the directroy doesnt exists then it creates a new directory.
 
 ```
 if { [file isdirectory $OutputDirectory]} {
@@ -213,21 +213,21 @@ if { [file exists $ConstraintsFile]} {
 	exit
 }
 ```
-If the all the files and directory mentioned exists then we can go for the further process.
+If the all the files and directory mentioned exists, then we can go for the further process.
 
 ![Image](https://github.com/user-attachments/assets/521fb6b5-ce7c-4778-8289-ae21c8cb3c27)
 
-If the mentioned directory doesnot exists then the script will create a new directroy as shown in the below figure.
+If the mentioned directory does not exists, then the script will create a new directroy as shown in the below figure.
 
 ![Image](https://github.com/user-attachments/assets/7e0b6ed4-c020-4652-818d-42b7ad702985)
 
-If the file mentioned doesnot exists then the script will exit as shown in the below figure.
+If the file mentioned does not exists, then the script will exit as shown in the below figure.
 
 ![Image](https://github.com/user-attachments/assets/d87b0f9f-cea3-42c9-a38a-509c4a36ed40)
 
 #### Convert constraints file into a SDC format 
 
-First, we need to convert the constraints.csv file into matrix for processing the cells easily. The script mentioned below can convert constraints.csv file into an matrix object.
+First, we need to convert the constraints.csv file into matrix objtect for processing the cells easily. The script mentioned below can convert constraints.csv file into an matrix object.
 constr_rows represents the number of rows presents in constraints.csv file and constr_columns represents the number of columns presents in constraints.csv file.
 
 ```
@@ -260,7 +260,7 @@ puts "output_ports_start = $output_ports_start "
 ```
 ![Image](https://github.com/user-attachments/assets/f059474c-d514-435f-970f-24e8a8b849be)
 
-In above figure, we can see the number of rows and columns in constraints.csv file is 57 and 11 respectively. We can also see the clock starting row as 0 input starting row as 4 and output starting row as 27. By obtaining these values we can easily process the constraints.csv file into sdc format.
+In above figure, we can see the number of rows and columns in constraints.csv file is 57 and 11 respectively. We can also see the clock starting row as 0, input starting row as 4, and output starting row as 27. By obtaining these values we can easily process the constraints.csv file into SDC format.
 
 ## Module 3 Processing clock and input constraints 
 
@@ -289,7 +289,7 @@ puts "clock_late_fall_slew_start = $clock_late_fall_slew_start"
 
 ![Image](https://github.com/user-attachments/assets/5c416e4b-c4b8-4a30-9db1-54fe646412cf)
 
-In the above figure, we can see different parameter column numbers have been assign to respective varialbes.
+In the above figure, we can see different parameter column numbers have been assign to respective variables.
 
 Then we have to write the parameters into a SDC file in a particular manner as shown below.
 
@@ -322,7 +322,7 @@ The above mentioned script creates a .sdc file in OutputDirectory and writes the
 
 In the above figure, we can see that the clock parameters are written into a .sdc file and we can also verify thatthe values written are matached same as cosntraints.csv file.
 
-Similarly, we have to find the column number for input parameter. The script mentioned belowc can find column numbers and assigns it to a respective variable. It also displays the column numbers of input parameters on display.
+Similarly, we have to find the column number for input parameter. The script mentioned below can find column numbers and assigns it to a respective variable. It also displays the column numbers of input parameters on display.
 
 ```
 set input_early_rise_delay_start [lindex [lindex [constraints search rect $clock_start_column $input_ports_start [expr {$constr_columns-1}] [expr {$output_ports_start-1}] early_rise_delay] 0] 0]
@@ -343,10 +343,11 @@ puts "input_early_fall_slew_start = $input_early_fall_slew_start"
 puts "input_late_rise_slew_start = $input_late_rise_slew_start"
 puts "input_late_fall_slew_start = $input_late_fall_slew_start"
 ```
+<br>
 
 ![Image](https://github.com/user-attachments/assets/968e74b8-5348-4111-968a-46f846deffbb)
 
-In the above figure, we can see that some of the input ports are bussed and some are not. But from the cosntraitns.csv filer we can differentiate which ports are bussed or which are not. We need to expand the bussed ports into single ports for understanding purposes for Opentimer too. So, we need to find if the input ports are bussed or not i.e. if the input port is single port or a bus. If it is a bus we need to append a "*" at the end of the port name in the .sdc file as shown below.
+In the above figure, we can see that some of the input ports are bussed and some are not. But from the cosntraitns.csv file we can't differentiate which ports are bussed or which are not. We need to expand the bussed ports into single ports for understanding purposes for Opentimer tool. So, we need to find if the input ports are bussed or not i.e. if the input port is single port or a bus. If it is a bus we need to append a **"*"** at the end of the port name in the .sdc file as shown below.
 
 ![Image](https://github.com/user-attachments/assets/07451caf-3d53-44cc-888c-6093758b3e51)
 
@@ -389,7 +390,7 @@ Some of the input port have multiple spaces in between them. The above mentioned
 
 ![Image](https://github.com/user-attachments/assets/2b75a558-9ffd-4b23-9c5d-aa0c6933062f)
 
-Then we have develop a alogrithm that checks if the input ports are bussed or not. The first step in the alogrithm is to read the /tmp/1 file. We have to split the file into lines. If the input ports are present multiple times in temporary file then we have sort unique item. Then we have to join them. We have to write that varaible into another temporary file. Then by using __llength__ coomand, count the number of elemnets in each port. If the count is greater than 2, it means input port is bussed. So concat a "*" at the end of port name.
+Then we have develop a alogrithm that checks if the input ports are bussed or not. The first step in the alogrithm is to read the /tmp/1 file. Then we have to split the file by using delimiter as **\n** . If the input ports are present multiple times in temporary file then we have sort unique item. Then we have to join them. We have to write that varaible into another temporary file. Then by using __llength__ coomand, count the number of elemnets in each port. If the count is greater than 2, it means input port is bussed. So concat a "*" at the end of port name.
 
 The script for the above alogrithm is mentioned below.
 
@@ -426,16 +427,16 @@ In the above figure, we split the lines and formatted into a single line.
 
 ![Image](https://github.com/user-attachments/assets/2624b0b5-5dbd-4fa1-8902-7d93908bc514)
 
-In the above figure, we sortted the unique item.
+In the above figure, we sorted the unique item.
 
 ![Image](https://github.com/user-attachments/assets/c6b7776f-2a78-479f-9e14-6153e29d3b3d)
 
-In the above figure, we joined the both elements.
+In the above figure, we joined all elements.
 
 
 ![Image](https://github.com/user-attachments/assets/6f4faff6-53a7-4117-86b8-63f8d79dd525)
 
-In the above figure, we can see if the count is greater than 2 then __*__ was concatted at the end of port name.
+In the above figure, we can see if the count is greater than 2 then **"*"** was concatted at the end of port name.
 
 We have to write the input parameters into .sdc file. The script for the mentioned purpose is given below.
 ```
@@ -459,7 +460,7 @@ The below figure shows that the input parameters are written in .sdc file and if
 
 In this module, we will complete the sub-task 2 by converting output constraints into sdc format. We will also do the synthesis by using Yosys tool.
 
-In the previous module we have completed convertting input constraints into sdc format.Similarly, do the same process for output parameters. We have to change only some parameters such as setting __i__ as __$output_ports_start__ etc..
+In the previous module we have completed converting input constraints into sdc format. Similarly, do the same process for output parameters. We have to change only some parameters such as setting **i**_as **$output_ports_start** etc..
 
 The script mentioned below finds the column number of the output parameters.
 ```
@@ -475,11 +476,11 @@ puts "output_late_rise_delay_start =$output_late_rise_delay_start"
 puts "output_late_fall_delay_start =$output_late_fall_delay_start"
 puts "output_load_start =$output_load_start"
 ```
-We can the output parameters column numbers in the below figure.
+We can find the output parameters column numbers in the below figure.
 
 ![Image](https://github.com/user-attachments/assets/8783ca50-2d84-4c44-956c-25d17c237420)
 
-We have to develop an alogrithm to check if the output ports are bussed or not. If bussd, concat "*" at the end of port name. Then write the output parameters into .sdc format in a particular sdc foramt.The script mentioned below does the above purpose.
+We have to develop an alogrithm to check if the output ports are bussed or not. If bussd, concat "*" at the end of port name. Then write the output parameters into .sdc format in a particular sdc foramt. The script mentioned below does the above purpose.
 
 ```
 set i [expr {$output_ports_start+1}]
@@ -556,16 +557,17 @@ close $sdc_file
 ```
 
 We can see the output parameters are written in sdc format in .sdc file as shown below.
+
 ![Image](https://github.com/user-attachments/assets/6afe4279-ac49-4551-9837-c92cc3aa90aa)
 
-After the successfull completion of writng all constraints parameters into .sdc file, we get a message saying "SDC created.Please use the constraints path /home/vsduser/vsdsynth/outdir_openMSP430/$openMSP430.sdc" as shown below.
+After the successful completion of writng all constraints parameters into .sdc file, we get a message saying "SDC created.Please use the constraints path /home/vsduser/vsdsynth/outdir_openMSP430/$openMSP430.sdc" as shown below.
 
 ![Image](https://github.com/user-attachments/assets/c659fa92-2d99-4626-84f4-b3cf474078da)
 
 
 #### Creating Scripts for Hierarchy check
 
-The script mentioned belows creates a .hier.ys and writes the script for the hierarchy check.
+
 ```
 
 puts "\n Info: Creating hierarchy check script to be used by Yosys"
@@ -591,10 +593,11 @@ The script mentioned above creates a .hier.ys and writes the script for the hier
 
 ![Image](https://github.com/user-attachments/assets/60cc1f8f-d4d8-4862-b93b-e10ff6d2a3f9)
 
-Whenever we uses __"exec"__ command in the tcl script, it runs the command in bash.
-We are runnimg running the yosys tool by passing __"openMSP430.heir.ys"__ as input file and catching all the logs in  __"openMSP430.hierarchy_check.log__
+Whenever we uses **"exec"** command in the tcl script, it runs the command in terminal.
 
-If there is an error, __"my_error"__ will be set to 1 and we have to find the error. In yosys when error occurs then we will find a common pattern such as __"referenced in module"__ . It differs across various tools. We have to search each lines of .log file and pritns the error statement. The script mentioned below does the above purpose. If the hierarchy check passes then it displays a message saying __"Hierarchy check PASS"__
+We are runnimg running the yosys tool by passing **"openMSP430.heir.ys"** as input file and catches all the logs in  **"openMSP430.hierarchy_check.log"**
+
+If there is an error, **"my_error"** will be set to 1 and we have to find the error. In yosys when error occurs, then we will find a common pattern such as **"referenced in module"** . It differs across various tools. We have to search each lines of .log file and prints the error statement. The script mentioned below does the above purpose. If the hierarchy check passes then it displays a message saying **"Hierarchy check PASS"**
 
 ```
 set my_error [catch { exec yosys -s $OutputDirectory/$DesignName.hier.ys >& $OutputDirectory/$DesignName.hierarchy_check.log} msg]
@@ -622,22 +625,19 @@ puts "\n Info: Please find the hierearchy check details in [file normalize $Outp
 
 ```
 
-- if there is no error then 
+- If an error doesn't occcurs, then
 
 ![Image](https://github.com/user-attachments/assets/6954bc54-5e06-413b-8730-c24e4d51cbaa)
 
-- if there is a error in hierarchy check then
+- If an error occurs during hierarchy check then
 
 ![Image](https://github.com/user-attachments/assets/9bfc50d5-12a1-46e8-81ec-978bf86573ac)
 
 
 
-
-
-
 ## Module 5: Advanced Scripting Techniques and Quality of Results Generation
 
-In module 5, we will develop script for synthesis and run yosys tool. Then we will talk about procs and discuss some procs that we are going to use in this task. We also convert the foramt [1] and sdc format intp format [2] which can be understandle by Opentimer tool.
+In module 5, we will develop script for synthesis and run yosys tool. Then we will talk about procs and discuss some procs that we are going to use in this task. We also convert the foramt [1] and sdc format into format [2] which can be understandable by Opentimer tool.
 
 #### Creating script for Synthesis
 ```
@@ -713,7 +713,7 @@ puts "\n$OutputDirectory/$DesignName.final.synth.v"
 
 ```
 
-The above scirpt can be used to remove \ from the gate level netlist. Because opentimer tool cannot understand the netlist with \ in it.As we can see we have 6119 \ in  the synt.v file as shown in the below figure. After running the above the count came down to 0.
+The above scirpt can be used to remove **\** from the gate level netlist. Because opentimer tool cannot understand the netlist with **\**  in it.As we can see we have 6119 **\**  in  the synt.v file as shown in the below figure. After running the above the count came down to 0.
 
 ![Image](https://github.com/user-attachments/assets/f88b9d33-54e3-4d62-a690-3e86779b1b2d)
 
@@ -871,7 +871,7 @@ foreach elem $find_clocks {
 close $tmp_file
 
 ```
-The above script is used to convert create_clock constraitns into format [2] which can be understandle by Opentimer tool. Basically it searches a pattern __create_clock__  and then gets the clock_port_name, clock_period and calucaltes dutry cycle. And then writes all the above values in /tmp/3 file as shown in below figure.
+The above script is used to convert create_clock constraitns into format [2] which can be understandable by Opentimer tool. Basically it searches a pattern **create_clock** and gets the clock_port_name, clock_period and calucaltes dutry cycle. And then writes all the above values in /tmp/3 file as shown in below figure.
 
 ![Image](https://github.com/user-attachments/assets/b1b2a8d8-5e5e-42da-86c1-e7896cdc37b2)
 
@@ -899,7 +899,7 @@ foreach elem $find_keyword {
 close $tmp2_file
 ```
 
-The above script is used to convert set_clock_latency constraitns into format [2] which can be understandle by Opentimer tool. Basically it searches a pattern __set_clock_latency__  and then gets all the parameters. Then writes all the above values in /tmp/2 file which is furher written in .timings file as shown in below figure.
+The above script is used to convert set_clock_latency constraitns into format [2] which can be understandable by Opentimer tool. Basically it searches a pattern **set_clock_latency** and gets all the parameters. Then writes all the above values in /tmp/2 file which is furher written in .timings file as shown in below figure.
 
 ![Image](https://github.com/user-attachments/assets/b1b2a8d8-5e5e-42da-86c1-e7896cdc37b2)
 
@@ -929,7 +929,7 @@ puts -nonewline $timing_file [read $tmp2_file]
 close $tmp2_file
 
 ```
-The above script is used to convert set_clock_transition constraitns into format [2] which can be understandle by Opentimer tool. Basically it searches a pattern __set_clock_transition__  and then gets all the parameters. Then writes all the above values in /tmp/2 file which is furher written in .timings file as shown in below figure.
+The above script is used to convert set_clock_transition constraitns into format [2] which can be understandable by Opentimer tool. Basically it searches a pattern **set_clock_transition**  and  gets all the parameters. Then writes all the above values in /tmp/2 file which is furher written in .timings file as shown in below figure.
 
 ![Image](https://github.com/user-attachments/assets/b1b2a8d8-5e5e-42da-86c1-e7896cdc37b2)
 
@@ -958,7 +958,7 @@ puts -nonewline $timing_file [read $tmp2_file]
 close $tmp2_file
 ```
 
-The above script is used to convert set_input_delay constraitns into format [2] which can be understandle by Opentimer tool. Basically it searches a pattern __set_input_delay__  and then gets all the parameters. Then writes all the above values in /tmp/2 file which is furher written in .timings file as shown in below figure.
+The above script is used to convert set_input_delay constraitns into format [2] which can be understandable by Opentimer tool. Basically it searches a pattern __set_input_delay__ and gets all the parameters. Then writes all the above values in /tmp/2 file which is furher written in .timings file as shown in below figure.
 
 ![Image](https://github.com/user-attachments/assets/969a2859-13a0-4b8b-b0c3-b0a0758aa615)
 
@@ -989,9 +989,9 @@ puts -nonewline $timing_file [read $tmp2_file]
 close $tmp2_file
 
 ```
-The above script is used to convert set_input_transition constraitns into format [2] which can be understandle by Opentimer tool. Basically it searches a pattern __set_input_transition__  and then gets all the parameters and convert into Opentimer format. Then writes all the above values in /tmp/2 file which is furher written in .timings file as shown in below figure.
+The above script is used to convert set_input_transition constraitns into format [2] which can be understandable by Opentimer tool. Basically it searches a pattern __set_input_transition__  and then gets all the parameters and convert into Opentimer format. Then writes all the above values in /tmp/2 file which is furher written in .timings file as shown in below figure.
 
-![Image](https://github.com/user-attachments/assets/969a2859-13a0-4b8b-b0c3-b0a0758aa615
+![Image](https://github.com/user-attachments/assets/969a2859-13a0-4b8b-b0c3-b0a0758aa615)
 
 ![Image](https://github.com/user-attachments/assets/28bf650a-4229-46e3-99ce-a138ec8e4539)
 
@@ -1019,7 +1019,7 @@ puts -nonewline $timing_file [read $tmp2_file]
 close $tmp2_file
 ```
 
-The above script is used to convert set_output_delay constraitns into format [2] which can be understandle by Opentimer tool. Basically it searches a pattern __set_output_delay__  and then gets all the parameters and convert into Opentimer format. Then writes all the above values in /tmp/2 file which is furher written in .timings file as shown in below figure.
+The above script is used to convert set_output_delay constraitns into format [2] which can be understandable by Opentimer tool. Basically it searches a pattern __set_output_delay__  and then gets all the parameters and convert into Opentimer format. Then writes all the above values in /tmp/2 file which is furher written in .timings file as shown in below figure.
 
 ![Image](https://github.com/user-attachments/assets/36a57d47-b2d6-4273-a9ab-1cff21d1583f)
 
@@ -1049,7 +1049,7 @@ puts "set_timing_fpath $sdc_dirname/$sdc_filename.timing"
 }
 
 ```
-The above script is used to expand bussed ports into format [2] which can be understandle by Opentimer tool as shown below.
+The above script is used to expand bussed ports into format [2] which can be understandable by Opentimer tool as shown below.
 
 Before expanding
 
@@ -1113,7 +1113,7 @@ puts "\nInfo: STA finished in $time_elapsed_in_sec seconds"
 puts "\nInfo: Refer to $OutputDirectory/$DesignName.results for warings and errors"
 
 ```
-The above script is used to executed the Opnetimer tool by passing openMSP430.conf file as an input the results are stored in openMSP430.results.It also stores the time elapsed during STA in microseconds and seconds as shown below.
+The above script is used to executed the Opnetimer tool by passing openMSP430.conf file as an input the results are stored in openMSP430.results. It also stores the time elapsed during STA in microseconds and seconds as shown below.
 
 ![Image](https://github.com/user-attachments/assets/e00ffcf6-c495-42d4-bd4c-5c17cd05621f)
 
