@@ -1,0 +1,49 @@
+#!/bin/tcsh -f
+echo " #    #    #    ######  ####### #     # ### #    #           "
+echo " #   #    # #   #     #    #    #     #  #  #   #             "
+echo " #  #    #   #  #     #    #    #     #  #  #  #              " 
+echo " ###    #     # ######     #    #######  #  ###               " 
+echo " #  #   ####### #   #      #    #     #  #  #  #               "
+echo " #   #  #     # #    #     #    #     #  #  #   #              "
+echo " #    # #     # #     #    #    #     # ### #    #             "
+echo 
+echo ""
+echo ""
+echo "           Developed by: Karthik"
+echo "           Acknowledgement: Kunal Ghosh, vlsisystemdesign.com"
+echo ""
+echo ""
+echo ""
+
+set my_work_dir = 'pwd'  
+#---------------------------------------------------------#
+#-----------Tool Initialization---------------------------#
+#---------------------------------------------------------#
+
+  
+ if ($#argv != 1) then
+	   echo "Info : Please Provide the csv file"
+	   exit 1
+ endif
+
+if (! -f $argv[1] || $argv[1] == "-help") then
+	if ($argv[1] == "-help") then
+		echo USAGE: ./vsdsynth \<csv file\>
+		echo
+		echo 		where \<csv file\> consists of 2 columns
+		echo
+		echo           	\<Design Name\> is the name of top level module 
+		echo
+		echo            \<Output Directory\> is the name of Output Directory where you want to dump synthesis script, synthesized netlist and timing reports
+		echo 
+		echo             \<Early Libary Path\> is the file path of the early cell libary to be used for STA
+		echo
+                echo             \<Late Libary Path\> is the file path of the late cell libary to be used for STA
+		echo
+                echo             \<Constraints file\> is the file path of constraints to be used for STA
+	else 
+		echo "ERROR: Cannot find the CSV file $argv[1]. Exiting"
+	endif
+else
+		tclsh vsdsynth.tcl  $argv[1]
+endif
